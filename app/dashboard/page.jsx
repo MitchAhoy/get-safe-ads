@@ -3,6 +3,7 @@ export default function Dashboard() {
     <main>
       <h1>Dashboard</h1>
       <div>See an overview of where your ad dollars are going</div>
+      <div></div>
     </main>
   );
 }
