@@ -1,10 +1,12 @@
 import Link from "next/link";
-import Button from "daisyui";
 
-const ButtonLogin = ({ isLoggedIn }) => {
+const ButtonLogin = ({ isLoggedIn, name }) => {
+  console.log(isLoggedIn);
   return (
     <Link href={isLoggedIn ? "/dashboard" : "/login"}>
-      <button className="btn btn-outline btn-secondary">Login</button>
+      <button className="btn btn-primary">
+        {isLoggedIn ? `G'day, ${name} 👋` : "Login"}
+      </button>
     </Link>
   );
 };
