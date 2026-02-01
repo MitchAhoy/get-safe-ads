@@ -31,44 +31,42 @@ export default function Home() {
         <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
       </section>
 
+      {/* PRICING */}
       <section className="bg-base-200 py-32">
         <div className="py-32 px-8 max-w-3xl mx-auto">
-          <p className="text-sm uppercase font-medium text-center text-primary mb-4">
+          <p className="text-sm uppercase text-center font-medium text-primary mb-4">
             Pricing
           </p>
-          <h2 className="text-3xl lg:text-4xl font-extrabold mb-12 text-center">
-            Pricing that pays for itself
+          <h2 className="text-3xl font-extrabold mb-6 lg:text-3xl mb-12 text-center">
+            A pricing that adapts to your needs
           </h2>
-          <div className="pricing-card max-w-sm">
-            <div className="upper-card flex flex-row justify-between">
-              <div className="bolt-icon-container border rounded-3xl p-1 border-black">
-                <Image src="/bolt-icon.svg" width={24} height={24} />
-              </div>
-              <div className="upper-chip badge badge-primary">
-                Limited time offer
+          <div className="p-8 bg-base-100 max-w-96 rounded-3xl mx-auto space-y-6">
+            <div className="flex gap-2 items-baseline">
+              <div className="text-4xl font-black">$19</div>
+              <div className="uppercase text-sm font-medium opacity-60">
+                /month
               </div>
             </div>
-            <div className="card-title-description">
-              <p className="text-bold">Starter</p>
-              <p className="text-bold">Best for startups and small teams</p>
-            </div>
-            <div className="pricing-amount">
-              <div className="pricing-figures">
-                <span className="pricing-actual">$8,900</span>
-                <span className="pricing-mo">/mo</span>
-              </div>
-              <p className="pricing-terms">Cancel or pause any time</p>
-            </div>
-            <div className="pricing-features">
-              <ul>
-                <li>Production-ready web-app deisgns</li>
-                <li>Production-ready web-app deisgns</li>
-                <li>Production-ready web-app deisgns</li>
-                <li>Production-ready web-app deisgns</li>
-                <li>Production-ready web-app deisgns</li>
-                <button className="btn btn-primary">Get started</button>
-              </ul>
-            </div>
+            <ul className="space-y-2">
+              <li className="flex gap-2 items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="text-green-600 size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m4.5 12.75 6 6 9-13.5"
+                  />
+                </svg>
+                Save time
+              </li>
+            </ul>
+            <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
           </div>
         </div>
       </section>
