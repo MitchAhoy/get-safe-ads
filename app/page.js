@@ -1,5 +1,5 @@
 import ButtonLogin from "@/components/ButtonLogin";
-import Image from "next/image";
+import FAQListItem from "@/components/FAQListItem";
 
 export default function Home() {
   const isLoggedIn = true;
@@ -33,11 +33,11 @@ export default function Home() {
 
       {/* PRICING */}
       <section className="bg-base-200 py-32">
-        <div className="py-32 px-8 max-w-3xl mx-auto">
+        <div className="px-8 max-w-3xl mx-auto">
           <p className="text-sm uppercase text-center font-medium text-primary mb-4">
             Pricing
           </p>
-          <h2 className="text-3xl font-extrabold mb-6 lg:text-3xl mb-12 text-center">
+          <h2 className="text-3xl font-extrabold mb-6 lg:text-3xl text-center">
             A pricing that adapts to your needs
           </h2>
           <div className="p-8 bg-base-100 max-w-96 rounded-3xl mx-auto space-y-6">
@@ -48,26 +48,72 @@ export default function Home() {
               </div>
             </div>
             <ul className="space-y-2">
-              <li className="flex gap-2 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="text-green-600 size-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m4.5 12.75 6 6 9-13.5"
-                  />
-                </svg>
-                Save time
-              </li>
+              {[
+                "Save time on manual placement exclusions",
+                "Ensure you only get the best placements",
+                "Stop showing on spam sites",
+                "Only show on DR site levels you decide",
+              ].map((listItem) => {
+                return (
+                  <li className="flex gap-2 items-center" key={listItem}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="text-green-600 size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m4.5 12.75 6 6 9-13.5"
+                      />
+                    </svg>
+                    {listItem}
+                  </li>
+                );
+              })}
             </ul>
-            <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
+            <ButtonLogin
+              isLoggedIn={isLoggedIn}
+              name={name}
+              extraStyle="w-full"
+            />
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-base-200">
+        <div className="py-32 px-8 max-w-3xl mx-auto">
+          <p className="text-sm uppercase text-center font-medium text-primary mb-4">
+            FAQ
+          </p>
+          <h2 className="text-3xl font-extrabold mb-6 lg:text-3xl text-center">
+            Frequently Asked Questions
+          </h2>
+
+          <ul className="max-w-lg mx-auto">
+            {[
+              {
+                question: "How much doees it cost?",
+                answer:
+                  "Get started for free with a 7-day trial. Then $20/mo per account after that.",
+              },
+              {
+                question: "Is it safe?",
+                answer:
+                  "The only edits we make to an account are to your placement lists. Yes",
+              },
+              {
+                question: "Does it take long to set up?",
+                answer: "Get up and running in < 3min.",
+              },
+            ].map((qa) => (
+              <FAQListItem key={qa.question} qa={qa} />
+            ))}
+          </ul>
         </div>
       </section>
     </main>
