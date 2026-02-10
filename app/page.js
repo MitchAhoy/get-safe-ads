@@ -6,6 +6,7 @@ import productDemoImage from "@/public/assets/productDemo.jpeg";
 export default function Home() {
   const isLoggedIn = true;
   const name = "James Bond";
+
   return (
     <main>
       <section className="bg-base-200">
