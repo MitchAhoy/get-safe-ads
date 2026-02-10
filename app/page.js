@@ -1,5 +1,7 @@
 import ButtonLogin from "@/components/ButtonLogin";
 import FAQListItem from "@/components/FAQListItem";
+import Image from "next/image";
+import productDemoImage from "@/public/assets/productDemo.jpeg";
 
 export default function Home() {
   const isLoggedIn = true;
@@ -7,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <section className="bg-base-200">
-        <div className="flex justify-between items-center px-8 py-2 max-w-3xl mx-auto">
+        <div className="flex justify-between items-center px-8 py-2 max-w-5xl mx-auto">
           <div className="font-bold">GetSafeAds</div>
           <div className="space-x-4 max-md:hidden">
             <a className="link link-hover" href="#pricing">
@@ -24,15 +26,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="text-center py-32 px-8 max-w-3xl mx-auto">
-        <h1 className="text-3xl font-extrabold mb-6 lg:text-5xl">
-          Stop wasting ad spend on bots and competitors
-        </h1>
-        <div className="opacity-80 mb-10">
-          Automatically block and get what you need so Google will refund you on
-          wated clicks. We pay for ourselves or we are free.
+      <section className="text-center py-32 px-8 max-w-5xl mx-auto flex flex-col lg:flex-row gap-14 lg:text-left items-center lg:items-start">
+        <Image
+          src={productDemoImage}
+          alt="product demo"
+          className="w-96 rounded-xl"
+        />
+        <div>
+          <h1 className="text-3xl font-extrabold mb-6 lg:text-5xl">
+            Stop wasting ad spend on bots and competitors
+          </h1>
+          <div className="opacity-80 mb-10">
+            Automatically block and get what you need so Google will refund you
+            on wated clicks. We pay for ourselves or we are free.
+          </div>
+          <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
         </div>
-        <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
       </section>
 
       {/* PRICING */}
