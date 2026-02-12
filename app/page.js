@@ -2,11 +2,12 @@ import ButtonLogin from "@/components/ButtonLogin";
 import FAQListItem from "@/components/FAQListItem";
 import Image from "next/image";
 import productDemoImage from "@/public/assets/productDemo.jpeg";
+import { auth } from "@/auth";
 
-export default function Home() {
-  const isLoggedIn = true;
-  const name = "James Bond";
+export default async function Home() {
+  const session = await auth();
 
+  console.log(session);
   return (
     <main>
       <section className="bg-base-200">
@@ -22,7 +23,7 @@ export default function Home() {
             <a className="link link-hover">Support</a>
           </div>
           <div>
-            <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
+            <ButtonLogin session={session} />
           </div>
         </div>
       </section>
@@ -41,7 +42,7 @@ export default function Home() {
             Automatically block and get what you need so Google will refund you
             on wated clicks. We pay for ourselves or we are free.
           </div>
-          <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
+          <ButtonLogin session={session} />
         </div>
       </section>
 
@@ -89,11 +90,7 @@ export default function Home() {
                 );
               })}
             </ul>
-            <ButtonLogin
-              isLoggedIn={isLoggedIn}
-              name={name}
-              extraStyle="w-full"
-            />
+            <ButtonLogin session={session} extraStyle="w-full" />
           </div>
         </div>
       </section>
