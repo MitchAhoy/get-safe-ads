@@ -1,12 +1,14 @@
-import Link from "next/link";
+"use client";
+import { signIn } from "next-auth/react";
 
 const ButtonLogin = ({ session, extraStyle }) => {
   return (
-    <Link href={session ? "/dashboard" : "/api/auth/signin"}>
-      <button className={`btn btn-primary ${extraStyle ? extraStyle : ""}`}>
-        {session ? `G'day, ${session.user.name ?? "mate"} 👋` : "Login"}
-      </button>
-    </Link>
+    <button
+      className={`btn btn-primary ${extraStyle ? extraStyle : ""}`}
+      onClick={() => signIn(undefined, { callback: "/dashboard" })}
+    >
+      {session ? `G'day, ${session.user.name ?? "mate"} 👋` : "Login"}
+    </button>
   );
 };
 
