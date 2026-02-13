@@ -5,9 +5,13 @@ const ButtonLogin = ({ session, extraStyle }) => {
   return (
     <button
       className={`btn btn-primary ${extraStyle ? extraStyle : ""}`}
-      onClick={() => signIn(undefined, { callback: "/dashboard" })}
+      onClick={() =>
+        session
+          ? (window.location.href = "/dashboard")
+          : signIn(undefined, { callbackUrl: "/dashboard" })
+      }
     >
-      {session ? `G'day, ${session.user.name ?? "mate"} 👋` : "Login"}
+      {session ? "Go to dashboard" : "Login"}
     </button>
   );
 };
