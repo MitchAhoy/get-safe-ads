@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "@/libs/mongo";
+import clientPromise from "@/lib/mongo";
 import Resend from "next-auth/providers/resend";
 import Google from "next-auth/providers/google";
 
