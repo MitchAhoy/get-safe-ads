@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const workspaceSchema = new mongoose.Schema({
   name: {
-    type: mongoose.Schema.Types.String,
-    require: true,
+    type: String,
+    required: true,
   },
   users: [
     {
@@ -13,6 +13,7 @@ const workspaceSchema = new mongoose.Schema({
   ],
 });
 
-const Workspace = mongoose.model("Workspace", workspaceSchema);
+const Workspace =
+  mongoose.models.Workspace || mongoose.model("Workspace", workspaceSchema);
 
-export default mongoose.modles.Workspace || Workspace;
+export default Workspace;

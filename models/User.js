@@ -1,17 +1,14 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-  email: {
-    type: mongoose.Schema.Types.String,
-    required: true,
-    unique: true,
+  email: { type: String, required: true, unique: true },
+  name: { type: String },
+  workspaceIds: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Workspace" }],
+    default: [],
   },
-  name: {
-    type: mongoose.Schema.Types.String,
-  },
-  workplaceIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Workspace" }],
 });
 
-const AccountList = mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-export default mongoose.modles.AccountList || AccountList;
+export default User;

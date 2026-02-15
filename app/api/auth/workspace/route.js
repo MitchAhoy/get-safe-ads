@@ -16,9 +16,9 @@ export async function POST(req) {
       );
     }
 
-    if (!body.placementUrl) {
+    if (!body.workspaceName) {
       return NextResponse.json(
-        { error: "Placement URL required" },
+        { error: "Workspace name required" },
         { status: 400 },
       );
     }
@@ -26,19 +26,29 @@ export async function POST(req) {
     await connectMongo();
 
     const user = await User.findById(session.user.id);
+    if (!user)
+      return NextResponse.json({ error: "No user found" }, { status: 404 });
     const workspace = await Workspace.create({
       name: body.workspaceName,
-      users: [...user._id],
+      users: [user._id],
     });
-    user.workspaceIds.push(workspace._id);
-    await workspace.save();
 
-    return NextResponse.json({
-      message: "New workspace create - ID: " + workspace._id,
-    });
+    if (!user.workspaceIds) {
+      user.workspaceIds = [];
+    }
+
+    user.workspaceIds.push(workspace._id);
+    await user.save();
+
+    return NextResponse.json(
+      {
+        message: "New workspace create - ID: " + workspace._id,
+      },
+      { status: 200 },
+    );
   } catch (e) {
-    console.error("Something has gone wrong in the workspace route: " + e);
-    NextResponse.json(
+    console.error("Workspace route error: ", e);
+    return NextResponse.json(
       {
         error: e.message,
       },
