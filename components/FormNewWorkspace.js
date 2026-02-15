@@ -15,16 +15,7 @@ const FormNewWorkspace = () => {
     setIsLoading(true);
 
     try {
-      // const response = await fetch("/api/auth/workspace", {
-      //   method: "POST",
-      //   body: JSON.stringify({ workspaceName }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-      // const data = await response.json();
-      // console.log(data);
-      const response = await axios.post("/api/auth/workspace", {
+      const response = await axios.post("/api/workspace", {
         workspaceName,
       });
       console.log(response);
