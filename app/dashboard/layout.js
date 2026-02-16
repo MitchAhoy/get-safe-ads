@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import DashboardShell from "@/components/DashboardShell";
 
-export default async function LayoutPrivate({ children }) {
+export default async function DashboardLayout({ children }) {
   const session = await auth();
+  if (!session) redirect("/");
 
-  !session && redirect("/");
-
-  return children;
+  return <DashboardShell session={session}>{children}</DashboardShell>;
 }
