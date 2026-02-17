@@ -1,23 +1,63 @@
 "use client";
-import { Shield, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 const DashboardShell = ({ session, children }) => {
+  const [menuIsActive, setMenuIsActive] = useState(false);
+
   return (
-    <div className="min-h-screen bg-base-200 flex">
-      <aside className="w-80 bg-base-100 border-r border-base-200 p-6 flex flex-col m-h-full">
+    <div className="h-screen overflow-hidden bg-base-200 flex">
+      <aside className="w-45 bg-base-100 border-r border-base-200 p-6 flex flex-col m-h-full">
         <div className="flex flex-col flex-1">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 justify-items-center">
-              <Shield />
-              <span className="text-xl font-semibold">Get Safe Ads</span>
+          <div className="relative inline-block">
+            <div className="flex flex-row relative z-50">
+              <button
+                className="btn btn-ghost"
+                onClick={() => setMenuIsActive(!menuIsActive)}
+              >
+                <span className="relative inline-block">
+                  <Image
+                    src={session.user.image}
+                    width={24}
+                    height={24}
+                    alt="User profile picture"
+                    className="rounded-full"
+                  />
+                  <span>
+                    <span className="border-muted absolute rounded-full border bg-green-500 -bottom-0.5 right-0 h-2 w-2"></span>
+                  </span>
+                </span>
+                <span>
+                  <span>{session.user.name}</span>
+                </span>
+
+                <ChevronDown color="gray" />
+              </button>
+              <ul
+                tabIndex="-1"
+                className={`menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow absolute ${!menuIsActive && "hidden"}`}
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div className="mt-8">
-            <ul className="menu menu-md p-0 gap-1">
+            <ul className="menu menu-sm p-0 gap-2">
               <li>
-                <a className="active rounded-xl">
+                <a className="rounded-xl">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -35,25 +75,28 @@ const DashboardShell = ({ session, children }) => {
                   Dashboard
                 </a>
               </li>
+
+              <li>
+                <a className="rounded-xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+                    />
+                  </svg>
+                  Placements
+                </a>
+              </li>
             </ul>
           </div>
-        </div>
-
-        <div className="flex flex-row">
-          <button className="btn btn-ghost  w-full">
-            <Image
-              src={session.user.image}
-              width={24}
-              height={24}
-              alt="User profile picture"
-            />
-
-            <span>
-              <span>{session.user.name}</span>
-            </span>
-
-            <ChevronDown />
-          </button>
         </div>
       </aside>
       <main className="flex-1 p-8">{children}</main>
