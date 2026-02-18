@@ -2,6 +2,7 @@
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 const DashboardShell = ({ session, children }) => {
   const [menuIsActive, setMenuIsActive] = useState(false);
@@ -13,7 +14,7 @@ const DashboardShell = ({ session, children }) => {
           <div className="relative inline-block">
             <div className="flex flex-row relative z-50">
               <button
-                className="btn btn-ghost"
+                className="btn btn-ghost no-animation"
                 onClick={() => setMenuIsActive(!menuIsActive)}
               >
                 <span className="relative inline-block">
@@ -34,23 +35,24 @@ const DashboardShell = ({ session, children }) => {
 
                 <ChevronDown color="gray" />
               </button>
-              <ul
-                tabIndex="-1"
-                className={`menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow absolute ${!menuIsActive && "hidden"}`}
-              >
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
+              {menuIsActive && (
+                <ul
+                  tabIndex="-1"
+                  className={
+                    "menu menu-sm dropdown-content bg-base-100 rounded-box mt-1 w-52 p-2 shadow absolute top-full"
+                  }
+                >
+                  <li>
+                    <a className="justify-between">Profile</a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
 
