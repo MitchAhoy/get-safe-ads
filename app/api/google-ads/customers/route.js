@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import connectMongo from "@/lib/mongoose";
 
 export async function POST(req) {
-  const body = await req.json();
+  const { cid } = await req.json();
   const session = auth();
 
   if (!session) {
@@ -12,6 +12,8 @@ export async function POST(req) {
       { status: 401 },
     );
   }
+
+  await connectMongo();
 
   return NextResponse({ error: "You made a request" }, { status: 200 });
 }

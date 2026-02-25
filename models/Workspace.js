@@ -11,6 +11,11 @@ const workspaceSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  cids: [
+    {
+      type: String,
+    },
+  ],
 });
 
 const Workspace =

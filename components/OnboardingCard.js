@@ -22,9 +22,13 @@ const OnboardingCard = ({ heading, description }) => {
           type="text"
           placeholder="XXX-XXX-XXXX"
           className="input input-md border-gray-400"
+          name="CID"
+          onChange={(e) => setFormData({ cid: e.target.value })}
         />
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Submit Google Ads ID</button>
+          <button className="btn btn-primary" type="submit">
+            Submit Google Ads ID
+          </button>
         </div>
       </div>
     </form>
