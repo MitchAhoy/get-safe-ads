@@ -13,7 +13,8 @@ const workspaceSchema = new mongoose.Schema({
   ],
   cids: [
     {
-      type: String,
+      cid: String,
+      isVerified: { type: Boolean, default: false },
     },
   ],
 });
