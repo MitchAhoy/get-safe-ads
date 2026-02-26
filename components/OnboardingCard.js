@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const OnboardingCard = () => {
   const [formData, setFormData] = useState({});
+  const [hasWorkspace, setHasWorkspace] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -13,6 +14,21 @@ const OnboardingCard = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const checkWorkspace = async () => {
+      try {
+        const response = await axios.get("/api/workspace");
+        setHasWorkspace(response.data.hasWorkspace);
+        console.log("this user has a workspace: " + response.data.hasWorkspace);
+        return;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    checkWorkspace();
+  });
 
   const onboardingFlowContent = {
     stepOne: {
@@ -32,8 +48,8 @@ const OnboardingCard = () => {
   return (
     <form className="card card-border bg-base-100 w-96" onSubmit={handleSubmit}>
       <div className="card-body">
-        <h2 className="card-title">{heading}</h2>
-        <p className="opacity-70 text-sm">{description}</p>
+        <h2 className="card-title">Heading placeholder</h2>
+        <p className="opacity-70 text-sm">Description placeholder</p>
         <input
           type="text"
           placeholder="XXX-XXX-XXXX"

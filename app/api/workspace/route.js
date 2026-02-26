@@ -4,6 +4,34 @@ import connectMongo from "@/lib/mongoose";
 import User from "@/models/User";
 import Workspace from "@/models/Workspace";
 
+export async function GET() {
+  try {
+    const session = await auth();
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "You do not have permissions to make this action." },
+        { status: 401 },
+      );
+    }
+
+    connectMongo();
+
+    const user = await User.findById(session.user.id);
+
+    return NextResponse.json(
+      {
+        hasWorkspace: Boolean(user.workspaceIds > 0),
+      },
+      {
+        status: 200,
+      },
+    );
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export async function POST(req) {
   try {
     const body = await req.json();
