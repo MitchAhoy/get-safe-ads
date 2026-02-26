@@ -38,6 +38,7 @@ export async function POST(req) {
     }
 
     user.workspaceIds.push(workspace._id);
+    user.currentWorkspaceId = workspace._id;
     await user.save();
 
     return NextResponse.json(

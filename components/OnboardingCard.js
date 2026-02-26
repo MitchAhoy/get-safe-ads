@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const OnboardingCard = ({ heading, description }) => {
+const OnboardingCard = () => {
   const [formData, setFormData] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,6 +13,22 @@ const OnboardingCard = ({ heading, description }) => {
       console.error(error);
     }
   };
+
+  const onboardingFlowContent = {
+    stepOne: {
+      heading: "What is your company or agency's name?",
+      sendTo: "/api/workspace",
+      name: "workspace_name",
+    },
+    stepTwo: {
+      heading: "Add your Google Ads ID",
+      description:
+        "In order for us to be able to apply changes to your account, please add the ad ID located in the top right of your account",
+      sendTo: "/api/google-ads/customers",
+      name: "add_cid",
+    },
+  };
+
   return (
     <form className="card card-border bg-base-100 w-96" onSubmit={handleSubmit}>
       <div className="card-body">
