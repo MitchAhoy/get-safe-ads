@@ -7,7 +7,10 @@ const UserSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Workspace" }],
     default: [],
   },
-  currentWorkspaceId: { type: String },
+  currentWorkspaceId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Workspace",
+  },
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
