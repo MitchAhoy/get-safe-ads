@@ -21,7 +21,7 @@ export async function GET() {
 
     return NextResponse.json(
       {
-        hasWorkspace: Boolean(user.workspaceIds > 0),
+        currentWorkspaceId: session.user.currentWorkspsaceId,
       },
       {
         status: 200,

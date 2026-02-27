@@ -14,6 +14,7 @@ const workspaceSchema = new mongoose.Schema({
   cids: [
     {
       cid: String,
+      accountName: String,
       isVerified: { type: Boolean, default: false },
     },
   ],
