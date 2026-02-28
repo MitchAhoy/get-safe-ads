@@ -10,6 +10,7 @@ const OnboardingCard = ({ session }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -20,7 +21,7 @@ const OnboardingCard = ({ session }) => {
     } catch (error) {
       console.error(error);
     } finally {
-      setCurrentStep(currentStep + 1);
+      currentStep < 2 && setCurrentStep(currentStep + 1);
     }
   };
 
@@ -53,7 +54,7 @@ const OnboardingCard = ({ session }) => {
           placeholder={formContent.placeholder}
           className="input input-md border-gray-400"
           name={formContent.name}
-          onChange={(e) => setFormData({ cid: e.target.value })}
+          onChange={(e) => setFormData({ data: e.target.value })}
         />
         <div className="card-actions justify-end">
           <button className="btn btn-primary" type="submit">

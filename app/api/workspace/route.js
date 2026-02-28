@@ -4,34 +4,6 @@ import connectMongo from "@/lib/mongoose";
 import User from "@/models/User";
 import Workspace from "@/models/Workspace";
 
-export async function GET() {
-  try {
-    const session = await auth();
-
-    if (!session) {
-      return NextResponse.json(
-        { error: "You do not have permissions to make this action." },
-        { status: 401 },
-      );
-    }
-
-    connectMongo();
-
-    const user = await User.findById(session.user.id);
-
-    return NextResponse.json(
-      {
-        currentWorkspaceId: session.user.currentWorkspsaceId,
-      },
-      {
-        status: 200,
-      },
-    );
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -44,7 +16,7 @@ export async function POST(req) {
       );
     }
 
-    if (!body.workspaceName) {
+    if (!body.data) {
       return NextResponse.json(
         { error: "Workspace name required" },
         { status: 400 },
@@ -57,7 +29,7 @@ export async function POST(req) {
     if (!user)
       return NextResponse.json({ error: "No user found" }, { status: 404 });
     const workspace = await Workspace.create({
-      name: body.workspaceName,
+      name: body.data,
       users: [user._id],
     });
 
@@ -71,7 +43,7 @@ export async function POST(req) {
 
     return NextResponse.json(
       {
-        message: "New workspace create - ID: " + workspace._id,
+        newWorkspaceId: workspace._id,
       },
       { status: 200 },
     );
