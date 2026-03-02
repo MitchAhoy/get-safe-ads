@@ -10,11 +10,10 @@ const OnboardingCard = ({ session }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
     try {
-      const response = await axios.post(
-        onboardingFlowContent[currentStep].sendTo,
+      const response = await axios[onboardingFlowContent[currentStep].httpType](
+        onboardingFlowContent[currentStep].sendTo(activeWorspaceId),
         { data: formData },
       );
       console.log(response);
@@ -29,7 +28,7 @@ const OnboardingCard = ({ session }) => {
   const onboardingFlowContent = {
     1: {
       heading: "What is your company or agency's name?",
-      sendTo: "/api/workspace",
+      sendTo: () => "/api/workspace",
       httpType: "post",
       name: "workspace_name",
       callToAction: "Next",
@@ -39,7 +38,7 @@ const OnboardingCard = ({ session }) => {
       heading: "Add your Google Ads ID",
       description:
         "In order for us to be able to apply changes to your account, please add the ad ID located in the top right of your account",
-      sendTo: `/api/workspace/${activeWorspaceId}`,
+      sendTo: (activeWorspaceId) => `/api/workspace/${activeWorspaceId}`,
       name: "add_cid",
       httpType: "patch",
       callToAction: "Submit",
