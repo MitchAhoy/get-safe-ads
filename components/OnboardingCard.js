@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const OnboardingCard = ({ session }) => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState("");
   const [activeWorspaceId, setActiveWorspaceId] = useState(
-    session.user.currentWorkspaceId,
+    session.user.currentWorkspaceId || "",
   );
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -15,12 +15,13 @@ const OnboardingCard = ({ session }) => {
     try {
       const response = await axios.post(
         onboardingFlowContent[currentStep].sendTo,
-        formData,
+        { data: formData },
       );
       console.log(response);
     } catch (error) {
       console.error(error);
     } finally {
+      setFormData("");
       currentStep < 2 && setCurrentStep(currentStep + 1);
     }
   };
@@ -29,6 +30,7 @@ const OnboardingCard = ({ session }) => {
     1: {
       heading: "What is your company or agency's name?",
       sendTo: "/api/workspace",
+      httpType: "post",
       name: "workspace_name",
       callToAction: "Next",
       placeholder: "Dundermifflin",
@@ -37,8 +39,9 @@ const OnboardingCard = ({ session }) => {
       heading: "Add your Google Ads ID",
       description:
         "In order for us to be able to apply changes to your account, please add the ad ID located in the top right of your account",
-      sendTo: "/api/google-ads/customers",
+      sendTo: `/api/workspace/${activeWorspaceId}`,
       name: "add_cid",
+      httpType: "patch",
       callToAction: "Submit",
       placeholder: "XXX-XXX-XXXX",
     },
@@ -54,7 +57,8 @@ const OnboardingCard = ({ session }) => {
           placeholder={formContent.placeholder}
           className="input input-md border-gray-400"
           name={formContent.name}
-          onChange={(e) => setFormData({ data: e.target.value })}
+          onChange={(e) => setFormData(e.target.value)}
+          value={formData}
         />
         <div className="card-actions justify-end">
           <button className="btn btn-primary" type="submit">
